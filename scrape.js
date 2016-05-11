@@ -23,6 +23,7 @@ rl.question("Enter a url you'd like to scrape: ", function(answer) {
         	var $ = cheerio.load(html);
         	var results = [];
 		var tagTarget = '';
+
 		rl.question("Which tag would you like to target?", (tagTarget) => {
 			console.log("\x1b[32m", tagTarget + ' tags will targeted!', "\x1b[0m");
 			$(tagTarget).each(function(){
@@ -34,10 +35,20 @@ rl.question("Enter a url you'd like to scrape: ", function(answer) {
 					case 'img':
 						var tagContent = $(this).attr('src');
 						results.push(tagContent);
+					case 'a':
+						var tagLink = $(this).attr('href');
+						var tagContent = $(this).text();
+						tagContent = tagContent.replace(/(\r\n|\n|\r|\t\s+)/gm,"").trim();
+						var data = {
+							link: tagLink,
+							content: tagContent
+						};
+						results.push(data);
+						break;
+
 					default:
-						var tagContent = $(this);
-						var data = tagContent.text();
-						data = data.replace(/(\r\n|\n|\r|\t\s+)/gm,"").trim();
+						var tagContent = $(this).text();
+						var data = tagContent.replace(/(\r\n|\n|\r|\t\s+)/gm,"").trim();
 						results.push(data);
 						break;
 				}
