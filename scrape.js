@@ -45,6 +45,21 @@ rl.question("Enter a url you'd like to scrape: ", function(answer) {
 						};
 						results.push(data);
 						break;
+					case 'blockquote':
+						var tagCite = $(this).attr('cite');
+						var tagContent = $(this).text();
+						tagContent = tagContent.replace(/(\r\n|\n|\r|\t\s+)/gm,"").trim();
+						if (typeof tagCite == 'undefined'){
+							results.push(tagContent);
+						}	
+						else {
+							var data = {
+								citation: tagCite,
+								content: tagContent
+							};
+							results.push(data);
+						}
+						break;
 
 					default:
 						var tagContent = $(this).text();
