@@ -60,7 +60,10 @@ rl.question("Enter a url you'd like to scrape: ", function(answer) {
 							results.push(data);
 						}
 						break;
-
+					case 'embed':
+						var tagLink = $(this).attr('src');
+						results.push(tagLink);
+						break;
 					default:
 						var tagContent = $(this).text();
 						var data = tagContent.replace(/(\r\n|\n|\r|\t\s+)/gm,"").trim();
