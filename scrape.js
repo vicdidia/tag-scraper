@@ -64,6 +64,15 @@ rl.question("Enter a url you'd like to scrape: ", function(answer) {
 						var tagLink = $(this).attr('src');
 						results.push(tagLink);
 						break;
+					case 'abbr':
+						var tagContent = $(this).text();
+						var tagTitle = $(this).attr('title');
+						var data = {
+							title: tagTitle,
+							accronym: tagContent
+						};
+						results.push(data);
+						break;
 					default:
 						var tagContent = $(this).text();
 						var data = tagContent.replace(/(\r\n|\n|\r|\t\s+)/gm,"").trim();
